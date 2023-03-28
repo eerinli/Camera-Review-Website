@@ -3,4 +3,4 @@
 - Developed multiple user authentication with password and email verification based on user role
 - Implemented upload feature for images and videos using cloud storage, enabling tags for searching
 
-Tech: Javascript, React.js, Node.js, Express, MongoDB, Tailwind, Cloudinary
+Tech: Javascript, React.js, Node.js, Express, MongoDB, Tailwind CSS, Mailtrap, Cloudinary, Sendinblue

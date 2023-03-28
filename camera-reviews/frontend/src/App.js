@@ -1,0 +1,75 @@
+import React from "react";
+import { Switch, Route, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import AddReview from "./components/add-review";
+import camera from "./components/camera";
+import cameraList from "./components/camera-list";
+import Login from "./components/login";
+
+function App() {
+  const [user, setUser] = React.useState(null);
+
+  async function login(user = null) {
+    setUser(user);
+  }
+
+  async function logout() {
+    setUser(null)
+  }
+
+  return (
+    <div>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <a href="/camera" className="navbar-brand">
+          camera Reviews
+        </a>
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={"/camera"} className="nav-link">
+              camera
+            </Link>
+          </li>
+          <li className="nav-item" >
+            { user ? (
+              <a onClick={logout} className="nav-link" style={{cursor:'pointer'}}>
+                Logout {user.name}
+              </a>
+            ) : (            
+            <Link to={"/login"} className="nav-link">
+              Login
+            </Link>
+            )}
+
+          </li>
+        </div>
+      </nav>
+
+      <div className="container mt-3">
+        <Switch>
+          <Route exact path={["/", "/camera"]} component={cameraList} />
+          <Route 
+            path="/camera/:id/review"
+            render={(props) => (
+              <AddReview {...props} user={user} />
+            )}
+          />
+          <Route 
+            path="/camera/:id"
+            render={(props) => (
+              <camera {...props} user={user} />
+            )}
+          />
+          <Route 
+            path="/login"
+            render={(props) => (
+              <Login {...props} login={login} />
+            )}
+          />
+        </Switch>
+      </div>
+    </div>
+  );
+}
+
+export default App;
